@@ -1,7 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../Widgets/GoogleSignInButton.dart';
-import '../utils/authentication.dart';
+import '../const.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -22,56 +23,46 @@ class _SignInScreenState extends State<SignInScreen> {
             right: 16.0,
             bottom: 20.0,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Image.asset(
-                        'images/logo.png',
-                        height: 160,
+          child: Center(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Image.asset(
+                          'images/logo.png',
+                          height: 160,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Flutter Firebase',
-                      style: TextStyle(
-                        color: Colors.yellowAccent,
-                        fontSize: 40,
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Flutter Calendar',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                        ),
                       ),
-                    ),
-                    const Text(
-                      'Authentication',
-                      style: TextStyle(
-                        color: Colors.orange,
-                        fontSize: 40,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              FutureBuilder(
-                future: Authentication.initializeFirebase(context: context),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Error initializing Firebase');
-                  } else if (snapshot.connectionState == ConnectionState.done) {
-                    return GoogleSignInButton();
-                  }
-                  return const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Colors.orange,
-                    ),
-                  );
-                },
-              ),
-            ],
+                FutureBuilder(
+                  future: Firebase.initializeApp(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error initializing Firebase');
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.done) {
+                      return GoogleSignInButton();
+                    }
+                    return progressIndication;
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

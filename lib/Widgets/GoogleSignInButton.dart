@@ -1,3 +1,4 @@
+import 'package:calender_app/const.dart';
 import 'package:calender_app/screens/CalendarScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,14 +8,7 @@ class GoogleSignInButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: OutlinedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.white),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-          ),
-        ),
+        style: googleBtnStyle,
         onPressed: () {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(

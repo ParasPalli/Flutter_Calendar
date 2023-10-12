@@ -1,20 +1,12 @@
-import 'dart:io' show Platform;
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/calendar/v3.dart' as GoogleAPI;
 import 'package:http/http.dart' show BaseRequest, Response;
 import 'package:http/io_client.dart' show IOClient, IOStreamedResponse;
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class Secret {
-  static const ANDROID_CLIENT_ID =
-      "12859863108-83n4t2ihc79e6sicr2cb57vd42r248oa.apps.googleusercontent.com";
-  static const IOS_CLIENT_ID =
-      "12859863108-26sre0tauo45cfq5vvc8a590up5r9b4r.apps.googleusercontent.com";
-  static String getId() =>
-      Platform.isAndroid ? Secret.ANDROID_CLIENT_ID : Secret.IOS_CLIENT_ID;
-}
+import '../screens/SignInScreen.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn(
   // clientId: '[YOUR_OAUTH_2_CLIENT_ID]',
@@ -37,11 +29,29 @@ Future<void> FirebaseLogin(googleUser) async {
     );
 
     try {
-      final UserCredential userCredential =
-          await auth.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
     } catch (e) {
       print(e);
     }
+  }
+}
+
+// Function to sign out the user
+Future<void> signOut(context) async {
+  try {
+    if (googleSignIn.currentUser != null) {
+      googleSignIn.disconnect();
+      googleSignIn.signOut();
+    }
+
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => SignInScreen(),
+      ),
+    );
+  } catch (e) {
+    print('Error during sign-out: $e');
   }
 }
 

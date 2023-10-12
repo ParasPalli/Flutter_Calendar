@@ -1,22 +1,27 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../const.dart';
 import '../utils/CalenderAuth.dart';
 
-class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({super.key});
-
-  @override
-  State<CalendarScreen> createState() => _CalendarScreenState();
-}
-
-class _CalendarScreenState extends State<CalendarScreen> {
+class CalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Google Calender"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              signOut(context);
+            },
+            icon: const Icon(
+              Icons.exit_to_app_sharp,
+              color: Colors.white,
+              size: 28,
+            ),
+          )
+        ],
       ),
       body: FutureBuilder(
         future: getGoogleEventsData(),
@@ -31,30 +36,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     appointmentDisplayMode:
                         MonthAppointmentDisplayMode.appointment),
               ),
-              snapshot.data != null
-                  ? Container()
-                  : const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.red,
-                      ),
-                    )
+              snapshot.data != null ? Container() : progressIndication,
             ],
           );
         },
       ),
     );
-  }
-
-  @override
-  void dispose() async {
-    if (googleSignIn.currentUser != null) {
-      googleSignIn.disconnect();
-      googleSignIn.signOut();
-
-      FirebaseAuth auth = FirebaseAuth.instance;
-      await auth.signOut();
-    }
-
-    super.dispose();
   }
 }
