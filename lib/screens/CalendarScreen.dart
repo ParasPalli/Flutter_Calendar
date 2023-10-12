@@ -36,7 +36,11 @@ class CalendarScreen extends StatelessWidget {
                     appointmentDisplayMode:
                         MonthAppointmentDisplayMode.appointment),
               ),
-              snapshot.data != null ? Container() : progressIndication,
+              snapshot.data != null
+                  ? Container()
+                  : Center(
+                      child: progressIndication,
+                    ),
             ],
           );
         },
