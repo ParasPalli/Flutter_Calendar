@@ -6,6 +6,12 @@ const progressIndication = CircularProgressIndicator(
   ),
 );
 
+const SignInTxtStyle = TextStyle(
+  fontSize: 20,
+  color: Colors.black54,
+  fontWeight: FontWeight.w600,
+);
+
 var googleBtnStyle = ButtonStyle(
   backgroundColor: MaterialStateProperty.all(Colors.white),
   shape: MaterialStateProperty.all(

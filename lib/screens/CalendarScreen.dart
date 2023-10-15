@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../const.dart';
+import '../utils/CalendarDataSource.dart';
 import '../utils/CalenderAuth.dart';
+import 'SignInScreen.dart';
 
 class CalendarScreen extends StatelessWidget {
   @override
@@ -13,7 +15,7 @@ class CalendarScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              signOut(context);
+              mainPage(context);
             },
             icon: const Icon(
               Icons.exit_to_app_sharp,
@@ -46,5 +48,17 @@ class CalendarScreen extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+void mainPage(context) async {
+  try {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => SignInScreen(),
+      ),
+    );
+  } catch (e) {
+    print('Error during sign-out: $e');
   }
 }

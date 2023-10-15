@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../Widgets/GoogleSignInButton.dart';
 import '../const.dart';
+import '../utils/gSignOutSignIn.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -56,7 +57,24 @@ class _SignInScreenState extends State<SignInScreen> {
                       return Text('Error initializing Firebase');
                     } else if (snapshot.connectionState ==
                         ConnectionState.done) {
-                      return GoogleSignInButton();
+                      return Column(
+                        children: [
+                          GoogleSignInButton(),
+                          TextButton(
+                            onPressed: () {
+                              signOut(context);
+                            },
+                            style: googleBtnStyle,
+                            child: const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                'Google SignOut',
+                                style: SignInTxtStyle,
+                              ),
+                            ),
+                          )
+                        ],
+                      );
                     }
                     return progressIndication;
                   },

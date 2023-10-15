@@ -27,14 +27,10 @@ class GoogleSignInButton extends StatelessWidget {
                 height: 35.0,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 10),
                 child: Text(
                   'Sign in with Google',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: SignInTxtStyle,
                 ),
               )
             ],
