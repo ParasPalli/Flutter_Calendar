@@ -1,8 +1,10 @@
+import 'package:cell_calendar/cell_calendar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/calendar/v3.dart' as GoogleAPI;
 import 'package:http/http.dart' show BaseRequest, Response;
 import 'package:http/io_client.dart' show IOClient, IOStreamedResponse;
 
+import '../const.dart';
 import 'gSignOutSignIn.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -12,7 +14,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn(
   ],
 );
 
-Future<List<GoogleAPI.Event>> getGoogleEventsData() async {
+Future<List<CalendarEvent>> getGoogleEventsData() async {
   final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
   await FirebaseLogin(googleUser);
 
@@ -21,7 +23,8 @@ Future<List<GoogleAPI.Event>> getGoogleEventsData() async {
 
   final GoogleAPI.CalendarApi calendarApi = GoogleAPI.CalendarApi(httpClient);
 
-  final List<GoogleAPI.Event> appointments = <GoogleAPI.Event>[];
+  final List<CalendarEvent> eventsList = [];
+
   final GoogleAPI.Events calEvents = await calendarApi.events.list(
     "primary",
   );
@@ -32,11 +35,17 @@ Future<List<GoogleAPI.Event>> getGoogleEventsData() async {
       if (event.start == null) {
         continue;
       }
-      appointments.add(event);
+      eventsList.add(
+        CalendarEvent(
+          eventName: event.summary ?? "No Title",
+          eventDate: event.start?.date ?? event.start!.dateTime!.toLocal(),
+          eventTextStyle: eventTextStyle,
+        ),
+      );
     }
   }
 
-  return appointments;
+  return eventsList;
 }
 
 class GoogleAPIClient extends IOClient {

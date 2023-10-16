@@ -12,6 +12,11 @@ const SignInTxtStyle = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
+const eventTextStyle = TextStyle(
+  fontSize: 12,
+  color: Colors.white,
+);
+
 var googleBtnStyle = ButtonStyle(
   backgroundColor: MaterialStateProperty.all(Colors.white),
   shape: MaterialStateProperty.all(
