@@ -50,16 +50,16 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAsDUjcG78z_okhyF_17R1Qauq_5BRSjDc',
-    appId: '1:12859863108:android:313bba2363f03dcf040c11',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '12859863108',
     projectId: 'calender-d3963',
     storageBucket: 'calender-d3963.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBawvDdJMI5TrCQ7CtWQ9sBsZ8h3Z-kAwY',
-    appId: '1:12859863108:ios:31b973765820c6e3040c11',
+    apiKey: '',
+    appId: '',
     messagingSenderId: '12859863108',
     projectId: 'calender-d3963',
     storageBucket: 'calender-d3963.appspot.com',
